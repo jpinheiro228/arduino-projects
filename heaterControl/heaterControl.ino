@@ -8,7 +8,6 @@
 #include <PubSubClient.h>
 
 #define RELAY_PIN 32
-#define RESET_PIN 33
 
 const char *ID = "bb-node01";  // Name of our device, must be unique
 const char *PUBTOPIC = "house/heater";  // Topic to publish to
@@ -42,8 +41,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 void PubStatus(){
   Serial.println("Publishing Heater Status");
-  if (!digitalRead(RELAY_PIN)) {client.publish(PUBTOPIC, "ON");}
-  else {client.publish(PUBTOPIC, "OFF");}
+  if (!digitalRead(RELAY_PIN)) {client.publish(PUBTOPIC, "ON", true);}
+  else {client.publish(PUBTOPIC, "OFF", true);}
 }
 
 void reconnect() {
@@ -69,13 +68,13 @@ void reconnect() {
 }
 
 void setup() {
-  pinMode(RESET_PIN, OUTPUT);
-  digitalWrite(RESET_PIN, HIGH);
   pinMode(RELAY_PIN, OUTPUT);
   digitalWrite(RELAY_PIN, LOW);
 
   Serial.begin(115200);
   // Initialize device.
+  WiFi.setHostname(ID);
+  delay(1000);
   WiFi.begin(ssid, password);
   int count = 0;
 
@@ -84,7 +83,7 @@ void setup() {
       Serial.print(".");
       count++;
         if(count==20){
-          digitalWrite(RESET_PIN, LOW);
+          ESP.restart();
         }
   }
   Serial.println("");

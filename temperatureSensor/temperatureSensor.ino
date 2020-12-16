@@ -56,6 +56,8 @@ void setup() {
   Serial.begin(115200);
   // Initialize device.
   dht.begin();
+  WiFi.setHostname(ID);
+  delay(1000);
   WiFi.begin(ssid, password);
   int count = 0;
 
@@ -64,7 +66,8 @@ void setup() {
       Serial.print(".");
       count++;
         if(count==20){
-          digitalWrite(RESET_PIN, LOW);
+          ESP.restart();
+          // digitalWrite(RESET_PIN, LOW);
         }
   }
   Serial.println("");
@@ -105,7 +108,7 @@ void loop() {
   
   sprintf(i,"%.2f\t",temp);
   sprintf(j,"%.2f",humid);
-  client.publish(TOPIC, i);
-  client.publish(TOPIC2, j);
+  client.publish(TOPIC, i, true);
+  client.publish(TOPIC2, j, true);
   delay(delayMS);
 }
