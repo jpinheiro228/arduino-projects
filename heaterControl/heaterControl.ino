@@ -41,8 +41,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 void PubStatus(){
   Serial.println("Publishing Heater Status");
-  if (!digitalRead(RELAY_PIN)) {client.publish(PUBTOPIC, "ON", true);}
-  else {client.publish(PUBTOPIC, "OFF", true);}
+  if (!digitalRead(RELAY_PIN)) {client.publish(PUBTOPIC, "ON", true);Serial.println("ON");}
+  else {client.publish(PUBTOPIC, "OFF", true);Serial.println("OFF");}
 }
 
 void reconnect() {
@@ -58,11 +58,28 @@ void reconnect() {
       // Subscribe to your topics here!
       client.subscribe(SUBTOPIC);
       client.subscribe(SUBTOPIC2);
-    
+      delay(2000);
+      client.publish(SUBTOPIC2, "STATUS", true);
     } else {
       Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
       delay(5000);
+    }
+    wifi_connect();
+  }
+}
+
+void wifi_connect(){
+  if (WiFi.status() != WL_CONNECTED){
+    Serial.println("WIFI is not connected. Attempting to reconnect...");
+    int count = 0;
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+        count++;
+          if(count==20){
+            ESP.restart();
+          }
     }
   }
 }
@@ -78,14 +95,8 @@ void setup() {
   WiFi.begin(ssid, password);
   int count = 0;
 
-  while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.print(".");
-      count++;
-        if(count==20){
-          ESP.restart();
-        }
-  }
+  wifi_connect();
+  
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
@@ -97,8 +108,12 @@ void setup() {
 }
 
 void loop() {
+  
+  wifi_connect();
+  
   if (!client.connected()){  // Reconnect if connection is lost
     reconnect();
   }
+  
   client.loop();
 }
