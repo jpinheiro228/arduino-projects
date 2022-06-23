@@ -1,0 +1,58 @@
+esphome:
+  name: bb-node02
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  ssid: !secret wifissid
+  password: !secret wifipass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Bb-Node02 Fallback Hotspot"
+    password: "m38y6JhB9Wde"
+
+captive_portal:
+
+sensor:
+  - platform: dht
+    pin: 25
+    temperature:
+      name: "Master Room Temperature"
+    humidity:
+      name: "Master Room Humidity"
+    update_interval: 60s    
+    model: DHT11
+
+mqtt:
+  broker: !secret mqttbroker
+  username: !secret mqttuser
+  password: !secret mqttpassword
+  client_id: bb-esp-mr
+  on_message:
+    - topic: home/ota_mode
+      payload: 'ON'
+      then:
+        - deep_sleep.prevent: deep_sleep_1
+    - topic: home/sleep_mode
+      payload: 'ON'
+      then:
+        - deep_sleep.enter: deep_sleep_1
+
+deep_sleep:
+  run_duration: 10s
+  sleep_duration: 10min
+  id: deep_sleep_1

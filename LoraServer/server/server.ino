@@ -7,8 +7,6 @@ void setup() {
   Heltec.display->init();
   Heltec.display->flipScreenVertically();  
   Heltec.display->setFont(ArialMT_Plain_10);
-  // pinMode(12,INPUT);
-
 }
 
 void loop() {
@@ -26,5 +24,4 @@ void loop() {
   Heltec.display->drawString(0, 0, String(i));
   Heltec.display->display();
   // Serial.println(digitalRead(12));
-  // delay(1000);
 }
