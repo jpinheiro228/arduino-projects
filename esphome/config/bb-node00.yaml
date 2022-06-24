@@ -1,10 +1,8 @@
 esphome:
-  name: bb-node02
+  name: bb-node00
 
-esp32:
-  board: nodemcu-32s
-  framework:
-    type: arduino
+esp8266:
+  board: nodemcuv2
 
 # Enable logging
 logger:
@@ -22,18 +20,18 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Bb-Node02 Fallback Hotspot"
+    ssid: "Bb-Node01 Fallback Hotspot"
     password: "m38y6JhB9Wde"
 
 captive_portal:
 
 sensor:
   - platform: dht
-    pin: 25
+    pin: D1
     temperature:
-      name: "Master Room Temperature"
+      name: "Guest Room Temperature"
     humidity:
-      name: "Master Room Humidity"
+      name: "Guest Room Humidity"
     update_interval: 10s    
     model: DHT11
 
@@ -41,7 +39,7 @@ mqtt:
   broker: !secret mqttbroker
   username: !secret mqttuser
   password: !secret mqttpassword
-  client_id: bb-esp-mr
+  client_id: bb-esp-gr
   on_message:
     - topic: home/ota_mode
       payload: 'ON'

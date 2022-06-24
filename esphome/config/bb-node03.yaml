@@ -34,7 +34,7 @@ sensor:
       name: "Kitchen Temperature"
     humidity:
       name: "Kitchen Humidity"
-    update_interval: 60s    
+    update_interval: 10s    
     model: DHT11
 
 mqtt:
@@ -53,6 +53,6 @@ mqtt:
         - deep_sleep.enter: deep_sleep_1
 
 deep_sleep:
-  run_duration: 10s
+  run_duration: 30s
   sleep_duration: 10min
   id: deep_sleep_1
