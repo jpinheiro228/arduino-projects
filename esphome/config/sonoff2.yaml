@@ -25,6 +25,12 @@ binary_sensor:
     name: "Sonoff Basic Button"
     on_press:
       - switch.toggle: relay
+  - platform: gpio
+    name: "Sonoff Ext Button"
+    pin: GPIO04
+    id: switch_1
+    on_state:
+      - switch.toggle: relay
 
 switch:
   - platform: gpio
@@ -32,6 +38,7 @@ switch:
     pin: GPIO12
     id: relay
     restore_mode: RESTORE_DEFAULT_OFF
+
 status_led:
   pin:
     number: GPIO13

@@ -19,7 +19,13 @@ ota:
 wifi:
   ssid: !secret wifissid
   password: !secret wifipass
-
+  fast_connect: true
+  manual_ip:
+    static_ip: 172.16.10.52
+    gateway: 172.16.10.1
+    subnet: 255.255.255.0
+    dns1: 172.16.10.16
+    dns2: 172.16.10.5
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Bb-Node02 Fallback Hotspot"
