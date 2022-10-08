@@ -17,7 +17,7 @@ ota:
 wifi:
   ssid: !secret wifissid
   password: !secret wifipass
-  fast_connect: true 
+  fast_connect: true
   manual_ip:
     static_ip: 172.16.10.50
     gateway: 172.16.10.1
@@ -27,7 +27,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Bb-Node01 Fallback Hotspot"
+    ssid: "Bb-Node00 Fallback Hotspot"
     password: "m38y6JhB9Wde"
 
 captive_portal:
@@ -39,7 +39,7 @@ sensor:
       name: "Guest Room Temperature"
     humidity:
       name: "Guest Room Humidity"
-    update_interval: 10s    
+    update_interval: 10s
     model: DHT11
 
 mqtt:

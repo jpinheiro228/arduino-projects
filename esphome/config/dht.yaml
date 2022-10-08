@@ -1,9 +1,0 @@
-sensor:
-  - platform: dht
-    pin: 25
-    temperature:
-      name: "Living Room Temperature"
-    humidity:
-      name: "Living Room Humidity"
-    update_interval: 60s
-    model: DHT11

@@ -28,7 +28,7 @@ wifi:
     dns2: 172.16.10.5
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Bb-Node01 Fallback Hotspot"
+    ssid: "Bb-Node03 Fallback Hotspot"
     password: "m38y6JhB9Wde"
 
 captive_portal:
@@ -40,7 +40,7 @@ sensor:
       name: "Kitchen Temperature"
     humidity:
       name: "Kitchen Humidity"
-    update_interval: 10s    
+    update_interval: 10s
     model: DHT11
 
 mqtt:
