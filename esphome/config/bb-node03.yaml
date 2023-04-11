@@ -21,10 +21,10 @@ wifi:
   password: !secret wifipass
   fast_connect: true
   manual_ip:
-    static_ip: 172.16.10.53
-    gateway: 172.16.10.1
+    static_ip: 172.16.99.53
+    gateway: 172.16.99.1
     subnet: 255.255.255.0
-    dns1: 172.16.10.16
+    dns1: 172.16.10.2
     dns2: 172.16.10.5
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
